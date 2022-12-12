@@ -23,7 +23,6 @@
         android:id="@+id/school_list_block"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,13 +33,12 @@
             android:id="@+id/total_results_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/text_padding_vertical_large"
             style="@style/Base.TextAppearance.Material3.LabelMedium"
             tools:text="Total results: 123"
             />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/school_list"
+                android:id="@+id/school_list_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="horizontal" />

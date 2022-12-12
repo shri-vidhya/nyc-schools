@@ -10,17 +10,13 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class HomeViewModel(private val repo: NycSchoolsAPI) : ViewModel() {
-
     private val highSchoolListPostStatus: MutableLiveData<UIResource<List<HighSchoolDTO?>?>> = MutableLiveData()
-//    private var isBasicListReady: Boolean = false
 
     fun getHighSchoolList(): MutableLiveData<UIResource<List<HighSchoolDTO?>?>> {
-//        isBasicListReady = false
         highSchoolListPostStatus.postValue(UIResource.loading(null))
         viewModelScope.launch {
             try {
                 val response = repo.getNycHighSchoolList()
-//                isBasicListReady = true
                 if (response.isSuccessful && response.body() != null)
                     highSchoolListPostStatus.postValue(UIResource.success(response.body()))
                 else
