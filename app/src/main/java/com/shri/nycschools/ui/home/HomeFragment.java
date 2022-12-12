@@ -10,8 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.shri.nycschools.R;
 import com.shri.nycschools.databinding.FragmentHomeBinding;
@@ -34,20 +32,20 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getHighSchoolList().observe(getViewLifecycleOwner(), data -> updateView(textView, data));
+        homeViewModel.getHighSchoolList().observe(getViewLifecycleOwner(), data -> updateView(binding, data));
         return root;
     }
-    private void updateView(TextView textView, UIResource<List<HighSchoolDTO>> listUIResource) {
+    private void updateView(FragmentHomeBinding homeBinding, UIResource<List<HighSchoolDTO>> listUIResource) {
         switch (listUIResource.getStatus()) {
             case SUCCESS:
-                // Send data to fragment
+                homeBinding.textHome.setVisibility(View.GONE);
                 List<HighSchoolDTO> highSchoolDTOs = listUIResource.getData();
                 if(highSchoolDTOs != null)
-                    textView.setText(highSchoolDTOs.toString());
+                    homeBinding.textHome.setText(highSchoolDTOs.toString());
                 break;
             case LOADING:
                 //  The content is not ready
+                homeBinding.textHome.setText(R.string.data_loading);
                 break;
             case ERROR:
                 Log.d(TAG, listUIResource.getMessage());

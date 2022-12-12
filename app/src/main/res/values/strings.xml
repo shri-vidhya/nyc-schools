@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Schools of NYC</string>
     <string name="title_home">Home</string>
+    <string name="data_loading">Loading...</string>
 </resources>
