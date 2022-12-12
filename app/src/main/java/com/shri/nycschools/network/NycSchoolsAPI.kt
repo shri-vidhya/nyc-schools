@@ -27,8 +27,8 @@ open class NycSchoolsAPI {
     open suspend fun getNycHighSchoolList(): Response<List<HighSchoolDTO>> {
         return webservice().getNycHighSchoolList()
     }
-    open suspend fun getSATScores(): Response<SATScoresDTO> {
-        return webservice().getSATScores()
+    open suspend fun getSATScores(dbn: String): Response<SATScoresDTO> {
+        return webservice().getSATScores(dbn)
     }
 
     companion object {

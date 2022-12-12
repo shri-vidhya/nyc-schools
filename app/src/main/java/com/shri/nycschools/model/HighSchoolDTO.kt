@@ -1,4 +1,4 @@
-package com.shri.nycschools.model;
+package com.shri.nycschools.model
 
 data class HighSchoolDTO (
     val dbn: String,
@@ -17,11 +17,11 @@ data class HighSchoolDTO (
     val start_time: String,
     val end_time: String,
     val grades2018: String,
-    val graduation_rate: Int,
-    val attendance_rate: Int,
-    val pct_stu_enough_variety: Int,
-    val college_career_rate: Int,
-    val pct_stu_safe: Int,
+    val graduation_rate: Double,
+    val attendance_rate: Double,
+    val pct_stu_enough_variety: Double,
+    val college_career_rate: Double,
+    val pct_stu_safe: Double,
     val girls: Int,
     val boys: Int,
     val international: Int,
