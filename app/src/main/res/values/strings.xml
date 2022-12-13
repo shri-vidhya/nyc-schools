@@ -4,4 +4,15 @@
     <string name="school_details">School Details</string>
     <string name="data_loading">Loading…</string>
     <string name="total_results">Total Results: %1$d</string>
+    <string name="no_sat_score">SAT Score not available</string>
+    <string name="sat_scores">SAT Scores</string>
+    <string name="number_of_test_takers">Number of test takers : </string>
+    <string name="critical_reading_avg_score">Critical Reading Avg Score : </string>
+    <string name="math_avg_score">Math Avg Score : </string>
+    <string name="writing_avg_score">Writing Avg Score : </string>
+    <string name="accessible">Accessible</string>
+    <string name="international">International</string>
+    <string name="high_school">High School</string>
+    <string name="address">Address</string>
+    <string name="phone_number">Phone Number</string>
 </resources>

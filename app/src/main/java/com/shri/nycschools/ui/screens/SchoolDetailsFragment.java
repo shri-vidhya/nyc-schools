@@ -45,6 +45,17 @@ public class SchoolDetailsFragment extends Fragment {
 
     private void loadData(HighSchoolDTO highSchoolDTO) {
         binding.schoolName.setText(highSchoolDTO.getSchool_name());
+        binding.description.setText(highSchoolDTO.getOverview_paragraph());
+        binding.phoneNumber.setText(highSchoolDTO.getPhone_number());
+        // TODO: Make address clickable
+        binding.address.setText(highSchoolDTO.getLocation());
+
+        if(highSchoolDTO.getInternational() == 1) {
+            binding.international.propertyText.setText(getString(R.string.international));
+        }
+        if(highSchoolDTO.getPtech() == 1) {
+            binding.highSchool.propertyText.setText(getString(R.string.high_school));
+        }
     }
 
     private void loadSATScores(UIResource<SATScoresDTO> listUIResource) {
@@ -52,17 +63,32 @@ public class SchoolDetailsFragment extends Fragment {
             case SUCCESS:
                 // Data fetch was successful. Updating SAT scores in school details screen
                 SATScoresDTO satScoresDTO = listUIResource.getData();
-                if(satScoresDTO != null)
-                    binding.satScore.setText(satScoresDTO.getNum_of_sat_test_takers());
+                if(satScoresDTO != null) {
+                    binding.numOfSatTestTakersValue.setText(satScoresDTO.getNum_of_sat_test_takers());
+                    binding.satMathAvgScore.setText(satScoresDTO.getSat_math_avg_score());
+                    binding.satCriticalReadingAvgScore.setText(satScoresDTO.getSat_critical_reading_avg_score());
+                    binding.satWritingAvgScore.setText(satScoresDTO.getSat_writing_avg_score());
+
+                    binding.satError.setVisibility(View.GONE);
+                    binding.satTotal.setVisibility(View.VISIBLE);
+                    binding.satReading.setVisibility(View.VISIBLE);
+                    binding.satMath.setVisibility(View.VISIBLE);
+                    binding.satWriting.setVisibility(View.VISIBLE);
+                } else {
+                    binding.satError.setText(R.string.no_sat_score);
+                    binding.satError.setVisibility(View.VISIBLE);
+                }
                 break;
             case LOADING:
                 //  The content is not ready yet. Showing Loading indicator
-                binding.satScore.setText(R.string.data_loading);
+                binding.satError.setText(R.string.data_loading);
+                binding.satError.setVisibility(View.VISIBLE);
                 break;
             case ERROR:
                 // Fetch failed with some error. Display the error message to user.
                 Log.d(TAG, listUIResource.getMessage());
-                binding.satScore.setText(listUIResource.getMessage());
+                binding.satError.setText(listUIResource.getStatus().toString());
+                binding.satError.setVisibility(View.VISIBLE);
                 break;
         }
     }
