@@ -17,9 +17,11 @@ import com.shri.nycschools.databinding.FragmentHomeBinding;
 import com.shri.nycschools.model.HighSchoolDTO;
 import com.shri.nycschools.network.UIResource;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SchoolListAdapter.ListItemClickListener {
 
     private FragmentHomeBinding binding;
 
@@ -28,7 +30,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
-                new ViewModelProvider(this, new HomeViewModelFactory()).get(HomeViewModel.class);
+                new ViewModelProvider(this,
+                        new HomeViewModelFactory()).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -36,6 +39,7 @@ public class HomeFragment extends Fragment {
         homeViewModel.getHighSchoolList().observe(getViewLifecycleOwner(), this::loadData);
         return root;
     }
+
     private void loadData(UIResource<List<HighSchoolDTO>> listUIResource) {
         switch (listUIResource.getStatus()) {
             case SUCCESS:
@@ -65,12 +69,18 @@ public class HomeFragment extends Fragment {
     private void displaySchoolList(List<HighSchoolDTO> highSchoolDTOs) {
         RecyclerView recyclerView =  binding.schoolListRecyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new SchoolListAdapter(highSchoolDTOs));
+        recyclerView.setAdapter(new SchoolListAdapter(highSchoolDTOs, this));
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onListItemClick(int position, @Nullable String dbn) {
+        // Go to new fragment
+        Log.d(TAG, "Click click "+position+" "+dbn);
     }
 }

@@ -9,28 +9,41 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.shri.nycschools.R
 import com.shri.nycschools.model.HighSchoolDTO
 
-class SchoolListAdapter(private val dataSet: List<HighSchoolDTO>) : RecyclerView.Adapter<SchoolListAdapter.SchoolListViewHolder>(){
-    class SchoolListViewHolder(itemView: View) : ViewHolder(itemView) {
+class SchoolListAdapter(private val dataSet: List<HighSchoolDTO>,
+                        private val clickListener: ListItemClickListener)
+    : RecyclerView.Adapter<SchoolListAdapter.SchoolListViewHolder>(){
+    class SchoolListViewHolder(itemView: View, clickListener: ListItemClickListener)
+        : ViewHolder(itemView) {
         val schoolTitleTextView: TextView
         val schoolContentTextView: TextView
+        var dbn: String? = null
         init {
             schoolTitleTextView = itemView.findViewById(R.id.item_content1)
             schoolContentTextView = itemView.findViewById(R.id.item_content2)
+
+            itemView.setOnClickListener {
+                clickListener.onListItemClick(adapterPosition, dbn)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SchoolListViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.school_card_list_item, parent, false)
-        return SchoolListViewHolder(view)
+        return SchoolListViewHolder(view, clickListener)
     }
 
     override fun onBindViewHolder(holder: SchoolListViewHolder, position: Int) {
         holder.schoolTitleTextView.text = dataSet[position].school_name
         holder.schoolContentTextView.text = dataSet[position].city
+        holder.dbn = dataSet[position].dbn
     }
 
     override fun getItemCount(): Int {
         return dataSet.size
+    }
+
+    interface ListItemClickListener {
+        fun onListItemClick(position: Int, dbn: String?)
     }
 }
