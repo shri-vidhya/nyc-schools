@@ -1,6 +1,6 @@
 package com.shri.nycschools.model
 
-data class HighSchoolDTO (
+data class HighSchoolDTO(
     val dbn: String,
     val school_name: String,
     val city: String,
@@ -30,7 +30,11 @@ data class HighSchoolDTO (
     val ptech: Int,
     val earlycollege: Int,
     val school_10th_seats: Int,
-)
+): java.io.Serializable {
+    override fun hashCode(): Int {
+        return dbn.hashCode()
+    }
+}
 
 data class SATScoresDTO (
     val dbn: String,

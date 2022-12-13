@@ -3,6 +3,7 @@ package com.shri.nycschools.ui.home;
 import android.util.Log
 import androidx.lifecycle.*
 import com.shri.nycschools.model.HighSchoolDTO;
+import com.shri.nycschools.model.SATScoresDTO
 import com.shri.nycschools.network.NycSchoolsAPI
 import com.shri.nycschools.network.UIResource
 import kotlinx.coroutines.launch
@@ -11,6 +12,8 @@ import java.io.IOException
 
 class HomeViewModel(private val repo: NycSchoolsAPI) : ViewModel() {
     private val highSchoolListPostStatus: MutableLiveData<UIResource<List<HighSchoolDTO?>?>> = MutableLiveData()
+    private val satScoresPostStatus: MutableLiveData<UIResource<SATScoresDTO?>> = MutableLiveData()
+    public var position: Int? = null
 
     fun getHighSchoolList(): MutableLiveData<UIResource<List<HighSchoolDTO?>?>> {
         highSchoolListPostStatus.postValue(UIResource.loading(null))
@@ -34,6 +37,33 @@ class HomeViewModel(private val repo: NycSchoolsAPI) : ViewModel() {
             }
         }
         return highSchoolListPostStatus
+
+    }
+
+    fun getSATScores(dbn: String): MutableLiveData<UIResource<SATScoresDTO?>> {
+        satScoresPostStatus.postValue(UIResource.loading(null))
+        viewModelScope.launch {
+            try {
+                val response = repo.getSATScores(dbn)
+                Log.d("shrevs", response.body().toString())
+                val satScoresDTO = response.body()?.get(0);
+                if (response.isSuccessful && satScoresDTO!=null)
+                    satScoresPostStatus.postValue(UIResource.success(satScoresDTO))
+                else
+                    satScoresPostStatus.postValue(UIResource.error(response.message(), null, null))
+            } catch (e: java.lang.Exception) {
+                // TODO: Handle specific errors
+                Log.e(TAG, e.toString())
+                satScoresPostStatus.postValue(
+                    UIResource.error(
+                        "Error Occurred while fetching SAT Scores: $e",
+                        e,
+                        null
+                    )
+                )
+            }
+        }
+        return satScoresPostStatus
 
     }
 

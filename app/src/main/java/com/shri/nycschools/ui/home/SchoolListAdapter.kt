@@ -16,13 +16,13 @@ class SchoolListAdapter(private val dataSet: List<HighSchoolDTO>,
         : ViewHolder(itemView) {
         val schoolTitleTextView: TextView
         val schoolContentTextView: TextView
-        var dbn: String? = null
+        var highSchoolDTO: HighSchoolDTO? = null
         init {
             schoolTitleTextView = itemView.findViewById(R.id.item_content1)
             schoolContentTextView = itemView.findViewById(R.id.item_content2)
 
             itemView.setOnClickListener {
-                clickListener.onListItemClick(adapterPosition, dbn)
+                clickListener.onListItemClick(adapterPosition, highSchoolDTO)
             }
         }
     }
@@ -36,7 +36,7 @@ class SchoolListAdapter(private val dataSet: List<HighSchoolDTO>,
     override fun onBindViewHolder(holder: SchoolListViewHolder, position: Int) {
         holder.schoolTitleTextView.text = dataSet[position].school_name
         holder.schoolContentTextView.text = dataSet[position].city
-        holder.dbn = dataSet[position].dbn
+        holder.highSchoolDTO = dataSet[position]
     }
 
     override fun getItemCount(): Int {
@@ -44,6 +44,6 @@ class SchoolListAdapter(private val dataSet: List<HighSchoolDTO>,
     }
 
     interface ListItemClickListener {
-        fun onListItemClick(position: Int, dbn: String?)
+        fun onListItemClick(position: Int, highSchoolDTO: HighSchoolDTO?)
     }
 }

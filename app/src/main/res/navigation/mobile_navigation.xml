@@ -7,8 +7,22 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.shri.nycschools.ui.home.HomeFragment"
+        android:name="com.shri.nycschools.ui.screens.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/next_action"
+            app:destination="@+id/navigation_school_details">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_school_details"
+        android:name="com.shri.nycschools.ui.screens.SchoolDetailsFragment"
+        android:label="@string/school_details"
+        tools:layout="@layout/school_details" >
+        <argument android:name="school_details"
+            app:argType="com.shri.nycschools.model.HighSchoolDTO"
+            android:defaultValue="@null" />
+    </fragment>
 
 </navigation>

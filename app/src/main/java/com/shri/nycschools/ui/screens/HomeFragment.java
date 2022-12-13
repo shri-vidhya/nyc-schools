@@ -1,4 +1,6 @@
-package com.shri.nycschools.ui.home;
+package com.shri.nycschools.ui.screens;
+
+import static com.shri.nycschools.ui.screens.SchoolDetailsFragment.SCHOOL_DETAILS;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +20,9 @@ import com.shri.nycschools.R;
 import com.shri.nycschools.databinding.FragmentHomeBinding;
 import com.shri.nycschools.model.HighSchoolDTO;
 import com.shri.nycschools.network.UIResource;
+import com.shri.nycschools.ui.home.HomeViewModel;
+import com.shri.nycschools.ui.home.HomeViewModelFactory;
+import com.shri.nycschools.ui.home.SchoolListAdapter;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -60,6 +67,7 @@ public class HomeFragment extends Fragment implements SchoolListAdapter.ListItem
             case ERROR:
                 // Fetch failed with some error. Display the error message to user.
                 // TODO: Store data so that it can be fetched from DB for offline mode
+                // TODO: Provide option to refresh/retry
                 Log.d(TAG, listUIResource.getMessage());
                 binding.textHome.setText(listUIResource.getMessage());
                 break;
@@ -79,8 +87,14 @@ public class HomeFragment extends Fragment implements SchoolListAdapter.ListItem
     }
 
     @Override
-    public void onListItemClick(int position, @Nullable String dbn) {
+    public void onListItemClick(int position, @Nullable HighSchoolDTO highSchoolDTO) {
         // Go to new fragment
-        Log.d(TAG, "Click click "+position+" "+dbn);
+        Fragment parent = getParentFragment();
+        if(highSchoolDTO != null &&  parent != null) {
+            NavController navController = Navigation.findNavController(requireActivity(), parent.getId());
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(SCHOOL_DETAILS, highSchoolDTO);
+            navController.navigate(R.id.navigation_school_details, bundle);
+        }
     }
 }

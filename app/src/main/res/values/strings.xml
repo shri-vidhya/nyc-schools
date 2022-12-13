@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Schools of NYC</string>
     <string name="title_home">Home</string>
+    <string name="school_details">School Details</string>
     <string name="data_loading">Loading…</string>
     <string name="total_results">Total Results: %1$d</string>
 </resources>
