@@ -25,8 +25,6 @@ Now that you have cloned the repo:
 
 You should be able to run this app on the Android emulator or physical device
 
-![final1](https://user-images.githubusercontent.com/78934822/207242601-81e0c6d5-759c-474d-9297-191dd2fc1096.gif =250x250)
-
 ## Android Version Targeting
 The Schools of NYC app is built to work with Android API 33(Android 13). **However**, the minimum SDK support is 21(Lollipop)
 
