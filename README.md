@@ -25,8 +25,7 @@ Now that you have cloned the repo:
 
 You should be able to run this app on the Android emulator or physical device
 
-Here's a sample video of the app:
-![final1](https://user-images.githubusercontent.com/78934822/207242601-81e0c6d5-759c-474d-9297-191dd2fc1096.gif)
+![final1](https://user-images.githubusercontent.com/78934822/207242601-81e0c6d5-759c-474d-9297-191dd2fc1096.gif =250x250)
 
 ## Android Version Targeting
 The Schools of NYC app is built to work with Android API 33(Android 13). **However**, the minimum SDK support is 21(Lollipop)
@@ -36,3 +35,11 @@ This project was build on JDK 8
 
 ## Build System
 This project uses Android Gradle plugin
+
+##
+Here's a sample video of the app:
+
+
+
+<a href="url"><img src="https://user-images.githubusercontent.com/78934822/207242601-81e0c6d5-759c-474d-9297-191dd2fc1096.gif" align="left" height="550" width="300" ></a>
+
